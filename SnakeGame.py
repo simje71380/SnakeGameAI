@@ -52,10 +52,8 @@ class SnakeGame:
         self.grid[SNAKE_INIT_HEAD_POS[0], SNAKE_INIT_HEAD_POS[1]] = HEAD
         self.last_pos = None #used to spawn a body if eat
 
-
         #placement de la case food de manière aléatoire
         self._spawnFood()
-
 
         if(input_type == INPUT_KEYBOARD):
             self.direction = KEYBOARD_DIRECTION[2] #start direction = down
@@ -76,22 +74,22 @@ class SnakeGame:
         self.temp_snake.pop(-1) #delete last to shift all to the previous element position
         self.last_pos = self.snake[len(self.snake)-1].copy()
 
-        if(dir == KEYBOARD_DIRECTION[1] and self.direction != KEYBOARD_DIRECTION[2]): # UP et je fais pas un 180
+        if(dir == KEYBOARD_DIRECTION[1] and self.direction != KEYBOARD_DIRECTION[2]): # UP and not 180
             head = self.snake[0].copy()
             head[1] -= 1
             self.temp_snake.insert(0, head)
             self.direction = KEYBOARD_DIRECTION[1]
-        elif(dir == KEYBOARD_DIRECTION[2] and self.direction != KEYBOARD_DIRECTION[1]): # DOWN et je fais pas un 180
+        elif(dir == KEYBOARD_DIRECTION[2] and self.direction != KEYBOARD_DIRECTION[1]): # DOWN and not 180
             head = self.snake[0].copy()
             head[1] += 1
             self.temp_snake.insert(0, head)
             self.direction = KEYBOARD_DIRECTION[2]
-        elif(dir == KEYBOARD_DIRECTION[3] and self.direction != KEYBOARD_DIRECTION[4]): # LEFT et je fais pas un 180
+        elif(dir == KEYBOARD_DIRECTION[3] and self.direction != KEYBOARD_DIRECTION[4]): # LEFT and not 180
             head = self.snake[0].copy()
             head[0] -= 1
             self.temp_snake.insert(0, head)
             self.direction = KEYBOARD_DIRECTION[3]
-        elif(dir == KEYBOARD_DIRECTION[4] and self.direction != KEYBOARD_DIRECTION[3]): # RIGHT
+        elif(dir == KEYBOARD_DIRECTION[4] and self.direction != KEYBOARD_DIRECTION[3]): # RIGHT and not 180
             head = self.snake[0].copy()
             head[0] += 1
             self.temp_snake.insert(0, head)
@@ -121,8 +119,7 @@ class SnakeGame:
         self.grid = np.zeros((CELL_NUMBER, CELL_NUMBER))
         try:
             self.grid[self.snake[0][0], self.snake[0][1]] = HEAD
-        except IndexError:
-            print("out of bonds")
+        except IndexError: #end of game : trying to set head at pos 20
             self.running = False
 
         for i in range(1, len(self.snake)):
@@ -141,7 +138,7 @@ class SnakeGame:
     def _hasCollided(self):
         #stop the game if the snake fill the entire space
         if(len(self.snake) == SNAKE_MAX_SIZE):
-            return False
+            self.running = False
         
         #Border collision
         head = self.snake[0]
@@ -156,7 +153,6 @@ class SnakeGame:
             if(self.snake[0] == self.snake[i]):
                 self.running = False
             
-
         #Food collision
         if(self.snake[0] == self.food):
             self._eatFood()
