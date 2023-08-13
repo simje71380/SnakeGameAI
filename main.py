@@ -1,20 +1,28 @@
 import pygame
 import SnakeGame as SG
+import agent
+import time
 
 
 if __name__ == "__main__":
     running = True
     not_break = True
-    sg = SG.SnakeGame(SG.INPUT_KEYBOARD)
+    sg = SG.SnakeGame(SG.INPUT_AI)
     clock = pygame.time.Clock()
+
+    if(sg.input_type == SG.INPUT_AI):
+        agent = agent.Agent(agent.GET_STATE_DANGER_3_AROUND)
+        agent.load_model()
 
 
     while running and not_break:
-        direction = SG.KEYBOARD_DIRECTION[0]
+        if(sg.input_type == SG.INPUT_KEYBOARD):
+            direction = SG.KEYBOARD_DIRECTION[0]
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 not_break = False
-            if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN and sg.input_type == SG.INPUT_KEYBOARD:
                 if event.key == pygame.K_q:
                     print("exit : Q pressed")
                     not_break = False
@@ -26,8 +34,23 @@ if __name__ == "__main__":
                     direction = SG.KEYBOARD_DIRECTION[3]
                 if event.key == pygame.K_RIGHT:
                     direction = SG.KEYBOARD_DIRECTION[4]
+            if event.type == pygame.KEYDOWN and sg.input_type == SG.INPUT_AI:
+                if event.key == pygame.K_q:
+                    print("exit : Q pressed")
+                    not_break = False
 
-        running, score = sg.playStep(direction)
-        clock.tick(SG.REFRESH_RATE)
-    
-    print(f"You lost score : {score}")
+        if(sg.input_type == SG.INPUT_AI):
+            state = agent.get_state(sg)
+            direction = agent.get_action_NN(state)
+
+
+        #print(f"state : {agent.get_state(sg)}")
+        running, score, reward = sg.playStep(direction)
+        #print(f"play stil alive : {running}")
+        if(sg.input_type == SG.INPUT_AI):
+            clock.tick(SG.REFRESH_RATE_AI)
+        else:
+            clock.tick(SG.REFRESH_RATE)
+
+    print(f"Game ended | score : {score}")
+    time.sleep(1)
