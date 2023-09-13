@@ -4,6 +4,8 @@ import numpy as np
 from random import *
 import math as m
 
+import vidmaker
+
 
 #Window properties
 WIN_WIDTH = 960
@@ -43,6 +45,8 @@ DIRECTIONS_CLOCKWISE = [0, 1, 2, 3] #UP RIGHT DOWN LEFT
 
 
 ITERATION_MAX_WITHOUT_EATING = 500
+
+video = vidmaker.Video(path="output.mp4", fps=30, resolution=(WIN_WIDTH, WIN_HEIGHT))
 
 class SnakeGame:
     def __init__(self, input_type, snake_view=False):
@@ -268,6 +272,8 @@ class SnakeGame:
         img = font.render(text, True, TEXT_COLOR)
         text_width, text_height = font.size(text)
         self.window.blit(img, (WIN_SCOREBOARD_OFFSET + text_width/2, WIN_HEIGHT/2 - text_height/2))
+        
+        video.update(pygame.surfarray.pixels3d(self.window).swapaxes(0, 1), inverted=True)  # THIS LINE
         pygame.display.flip() #change display buffer to the updated one
 
     def drawWindowSnakeView(self, grid):
@@ -292,3 +298,6 @@ class SnakeGame:
         text_width, text_height = font.size(text)
         self.window.blit(img, (WIN_SCOREBOARD_OFFSET + text_width/2, WIN_HEIGHT/2 - text_height/2))
         pygame.display.flip() #change display buffer to the updated one
+
+    def exportvid(self):
+        video.export(verbose=True)

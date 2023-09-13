@@ -439,12 +439,12 @@ class Agent:
         final_move[move] = 1
         return final_move
 
-def train():
+def train(mode):
     plot_scores = []
     plot_mean_scores = []
     total_score = 0
     record = 0
-    agent = Agent(GET_STATE_DANGER_3_AROUND)
+    agent = Agent(mode)
     agent.load_model()
     game = SnakeGame.SnakeGame(SnakeGame.INPUT_AI)
     stop = False
@@ -505,7 +505,3 @@ def train():
         if keyboard.is_pressed("q"):
             stop = True
             print("saving best model")
-
-
-if __name__ == '__main__':
-    train()

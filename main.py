@@ -3,15 +3,14 @@ import SnakeGame as SG
 import agent
 import time
 
-
 if __name__ == "__main__":
     running = True
     not_break = True
-    sg = SG.SnakeGame(SG.INPUT_AI)
+    sg = SG.SnakeGame(SG.INPUT_AI) # use SG.INPUT_AI for AI to play | use SG.INPUT_KEYBOARD if you want to try the game yourself (using arrow keys)
     clock = pygame.time.Clock()
 
     if(sg.input_type == SG.INPUT_AI):
-        agent = agent.Agent(agent.GET_STATE_DANGER_3_AROUND)
+        agent = agent.Agent(agent.GET_STATE_DANGER_SEE_1)
         agent.load_model()
 
 
@@ -52,5 +51,7 @@ if __name__ == "__main__":
         else:
             clock.tick(SG.REFRESH_RATE)
 
+
+    sg.exportvid()
     print(f"Game ended | score : {score}")
     time.sleep(1)
