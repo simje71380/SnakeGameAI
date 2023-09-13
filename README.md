@@ -43,7 +43,7 @@ Full Vision: The AI has complete visibility of the entire game board.
 
 ## 🧩 Modules
 
-<details closed><summary>Root</summary>
+<details open><summary>Root</summary>
 
 | File                                                                             | Summary                                |
 | ---                                                                              | ---                                    |
