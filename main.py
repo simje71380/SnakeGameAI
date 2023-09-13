@@ -1,16 +1,35 @@
 import pygame
 import SnakeGame as SG
-import agent
+import agent as Ag
 import time
+import sys
 
-if __name__ == "__main__":
+def main(argv):
+    if(argv[0] == 'human'):
+        mode = SG.INPUT_KEYBOARD
+    elif(argv[0] == 'AI'):
+        mode = SG.INPUT_AI
+        if(argv[1] == '1_tile'):
+            a_mode = Ag.GET_STATE_DANGER_SEE_1
+        if(argv[1] == '2_tile'):
+            a_mode = Ag.GET_STATE_DANGER_SEE_2
+        if(argv[1] == '3_tile'):
+            a_mode = Ag.GET_STATE_DANGER_3_AROUND
+        if(argv[1] == 'full'):
+            a_mode = Ag.GET_STATE_GRID
+        else:
+            print("\n\nERROR: specify the observation mode : 1_tile | 2_tile | 3_tile | full\n--> run: python main.py AI 1_tile\nor run: python main.py AI full ...")
+    else:
+        print("\n\nERROR: specify game mode : human or AI\n--> run: python main.py human\nor run: python main.py AI observation_mode")
+        return 1
+
     running = True
     not_break = True
-    sg = SG.SnakeGame(SG.INPUT_AI) # use SG.INPUT_AI for AI to play | use SG.INPUT_KEYBOARD if you want to try the game yourself (using arrow keys)
+    sg = SG.SnakeGame(mode)
     clock = pygame.time.Clock()
 
     if(sg.input_type == SG.INPUT_AI):
-        agent = agent.Agent(agent.GET_STATE_DANGER_SEE_1)
+        agent = Ag.Agent(mode = a_mode)
         agent.load_model()
 
 
@@ -55,3 +74,6 @@ if __name__ == "__main__":
     sg.exportvid()
     print(f"Game ended | score : {score}")
     time.sleep(1)
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
