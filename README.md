@@ -39,6 +39,8 @@ This repository contains an implementation of the classic Snake game where both 
 3-Tile Vision: The AI observes the three tiles around its head.<br />
 Full Vision: The AI has complete visibility of the entire game board.
 
+![](https://github.com/simje71380/SnakeGameAI/blob/main/snakeAI.gif)
+
 ---
 
 ## 🧩 Modules
