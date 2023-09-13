@@ -21,11 +21,11 @@
 ## 📒 Table of Contents
 - [📒 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
-- [🧩 Modules](#modules)
+- [🧩 Modules](#-modules)
 - [🚀 Getting Started](#-getting-started)
   - [✔️ Prerequisites](#️-prerequisites)
   - [💻 Installation](#-installation)
-  - [🎮 Using SnakeGameAI ](#-using-snakegame-ai)
+  - [🎮 Using SnakeGameAI ](#-using-snakegameai)
 - [📄 License](#-license)
 ---
 
