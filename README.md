@@ -34,7 +34,7 @@
 
 This repository contains an implementation of the classic Snake game where both humans and AI can play. The AI player is powered by the Deep Q-Network (DQN) algorithm. What sets this implementation apart is the flexibility it offers for configuring the AI's observation capabilities. There are four observation modes available:
 
-1-Tile Vision: The AI observes only the tile adjacent to its head. (in front, right, left)<br />
+1-Tile Vision: The AI observes only the tiles adjacent to its head. (in front, right, left)<br />
 2-Tile Vision: The AI observes the two tiles surrounding its head.<br />
 3-Tile Vision: The AI observes the three tiles around its head.<br />
 Full Vision: The AI has complete visibility of the entire game board.
